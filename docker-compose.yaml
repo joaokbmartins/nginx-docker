@@ -1,4 +1,31 @@
-version: "3.9"
+version: '3'
+
 services:
-  web:
-    build:
+  nginx:
+    image: nginx
+    container_name: nginxc
+    volumes: 
+      - $PWD/nginx:/usr/share/nginx/html
+    ports:
+      - 80:80
+
+  mysql: 
+    image: mysql
+    container_name: mysqlc
+    ports:
+      - 3606:3606
+    environment: 
+      MYSQL_ROOT_PASSWORD: root
+    expose: 
+      - 3606
+
+  openjdk:
+    image: openjdk:17-alpine
+    container_name: openjdkc
+    volumes:
+      - $PWD/projeto:/usr/src/projeto
+    working_dir: /usr/src/projeto/
+    commnad: "javac Person.java"
+    ports: 
+      - 81:80
+    
